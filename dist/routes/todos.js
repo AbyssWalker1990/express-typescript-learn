@@ -4,7 +4,7 @@ const express_1 = require("express");
 const todosController_1 = require("../controllers/todosController");
 const router = (0, express_1.Router)();
 router.post('/', todosController_1.createTodo);
-router.get('/');
+router.get('/', todosController_1.getTodos);
 router.patch('/:id');
 router.delete('/:id');
 exports.default = router;
