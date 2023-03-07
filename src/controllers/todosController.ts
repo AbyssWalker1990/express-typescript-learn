@@ -17,7 +17,7 @@ export const getTodos: RequestHandler = (req, res, next) => {
   res.status(200).json({message: 'List of TODOs', todos: TODOS})
 }
 
-export const updateTodo: RequestHandler<{id: string}> (req, res, next) {
+export const updateTodo: RequestHandler<{id: string}> = (req, res, next) => {
   const todoId = req.params.id
 
   const updatedText = (req.body as {text: string}).text
@@ -30,4 +30,13 @@ export const updateTodo: RequestHandler<{id: string}> (req, res, next) {
   TODOS[todoIndex] = new Todo(TODOS[todoIndex].id, updatedText)
 
   res.json({message: 'Updated', updatedTodo: TODOS[todoIndex]})
+}
+
+export const deleteTodo: RequestHandler<{id: string}> = (req, res, next) => {
+  const todoId = req.params.id
+  const deletedTodoIndex = TODOS.findIndex(todo => todo.id === todoId)
+
+  res.json({deleted: TODOS[deletedTodoIndex]})
+  TODOS.splice(deletedTodoIndex, 1)
+
 }
